@@ -30,7 +30,7 @@ Animal* Life::mate(Animal a1, Animal a2){
                                                    c->getFoodFindingAbility(),
                                                    c->getFriendliness(),
                                                    c->getSize(),
-                                                   c->getSex(),
+                                                   //c->getSex(),
                                                    c->getAge(),
                                                    c->getBeauty(),
                                                    c->getHealth()));

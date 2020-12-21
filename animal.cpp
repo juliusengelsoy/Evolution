@@ -107,3 +107,14 @@ int* Animal::getLocation(){
 double Animal::getFoodRequirement(){
     return this->foodRequirement;
 }
+
+double Animal::foodRequirementCalculate(double strength,
+                       double foodFindingAbility,
+                       double friendliness,
+                       double size,
+                       //bool sex,
+                       int age,
+                       double beauty,
+                       double health){
+    return (strength + foodFindingAbility + friendliness + size + beauty - health - age);//*(1+0.2*(double)sex);
+}

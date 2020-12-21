@@ -39,14 +39,14 @@ public:
            int* location,
            double foodRequirement,
            double food);
-//    void setStrength(double strength);
-//    void setFoodFindingAbility(double foodFindingAbility);
-//    void setFriendliness(double friendliness);
-//    void setSize(double size);
-//    void setSex(bool sex);
-//    void setAge(int age);
-//    void setBeauty(double beauty);
-//    void setLongevity(int longevity);
+    //    void setStrength(double strength);
+    //    void setFoodFindingAbility(double foodFindingAbility);
+    //    void setFriendliness(double friendliness);
+    //    void setSize(double size);
+    //    void setSex(bool sex);
+    //    void setAge(int age);
+    //    void setBeauty(double beauty);
+    //    void setLongevity(int longevity);
     void setHealth(double health);
     void setLocation(int* location);
     void setFoodRequirement(double foodRequirement);
@@ -66,15 +66,13 @@ public:
     void eat(double food);
     void clearFood();
     double foodRequirementCalculate(double strength,
-                           double foodFindingAbility,
-                           double friendliness,
-                           double size,
-                           bool sex,
-                           int age,
-                           double beauty,
-                           double health){
-        return strength + foodFindingAbility + friendliness + size + (double)sex*5 + beauty - health - age;
-    }
+                                    double foodFindingAbility,
+                                    double friendliness,
+                                    double size,
+                                    //bool sex,
+                                    int age,
+                                    double beauty,
+                                    double health);
 };
 
 #endif /* animal_hpp */
