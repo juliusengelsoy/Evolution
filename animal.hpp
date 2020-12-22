@@ -8,7 +8,9 @@
 #ifndef animal_hpp
 #define animal_hpp
 
+#include <vector>
 #include <stdio.h>
+using namespace std;
 
 class Animal
 {
@@ -22,7 +24,7 @@ private:
     double beauty;
     int longevity;
     double health;
-    int location[2];
+    vector<int> location;
     double foodRequirement;
     double food;
     
@@ -36,7 +38,7 @@ public:
            double beauty,
            int longevity,
            double health,
-           int* location,
+           vector<int> location,
            double foodRequirement,
            double food);
     //    void setStrength(double strength);
@@ -48,31 +50,28 @@ public:
     //    void setBeauty(double beauty);
     //    void setLongevity(int longevity);
     void setHealth(double health);
-    void setLocation(int* location);
+    void setLocation(vector<int> location);
     void setFoodRequirement(double foodRequirement);
     
-    double getStrength();
-    double getFoodFindingAbility();
-    double getFriendliness();
-    double getSize();
-    bool getSex();
-    int getAge();
-    double getBeauty();
-    int getLongevity();
-    double getHealth();
-    int* getLocation();
-    double getFoodRequirement();
+    double getStrength() const;
+    double getFoodFindingAbility() const;
+    double getFriendliness() const;
+    double getSize() const;
+    bool getSex() const;
+    int getAge() const;
+    double getBeauty() const;
+    int getLongevity() const;
+    double getHealth() const;
+    vector<int> getLocation() const;
+    double getFoodRequirement() const;
+    double getFood() const;
     
     void eat(double food);
     void clearFood();
-    double foodRequirementCalculate(double strength,
-                                    double foodFindingAbility,
-                                    double friendliness,
-                                    double size,
-                                    //bool sex,
-                                    int age,
-                                    double beauty,
-                                    double health);
+    void step(int dx, int dy);
+    
+    bool operator== (const Animal& other) const;
+    
 };
 
 #endif /* animal_hpp */

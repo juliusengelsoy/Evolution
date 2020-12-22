@@ -6,6 +6,8 @@
 //
 
 #include "animal.hpp"
+#include <vector>
+using namespace std;
 
 Animal::Animal(double strength,
                double foodFindingAbility,
@@ -16,7 +18,7 @@ Animal::Animal(double strength,
                double beauty,
                int longevity,
                double health,
-               int* location,
+               vector<int> location,
                double foodRequirement,
                double food){
     this->strength = strength;
@@ -28,8 +30,7 @@ Animal::Animal(double strength,
     this->beauty = beauty;
     this->longevity = longevity;
     this->health = health;
-    this->location[0] = location[0];
-    this->location[1] = location[1];
+    this->location = location;
     this->foodRequirement = foodRequirement;
     this->food = food;
 }
@@ -60,12 +61,48 @@ Animal::Animal(double strength,
 void Animal::setHealth(double health){
     this->health = health;
 }
-void Animal::setLocation(int* location){
-    this->location[0] = location[0];
-    this->location[1] = location[1];
+void Animal::setLocation(vector<int> location){
+    this->location = location;
 }
 void Animal::setFoodRequirement(double foodRequirement){
     this->foodRequirement = foodRequirement;
+}
+
+double Animal::getStrength() const{
+    return this->strength;
+}
+double Animal::getFoodFindingAbility() const{
+    return this->foodFindingAbility;
+}
+double Animal::getFriendliness() const{
+    return this->friendliness;
+}
+double Animal::getSize() const{
+    return this->size;
+}
+bool Animal::getSex() const{
+    return this->sex;
+}
+int Animal::getAge() const{
+    return this->age;
+}
+double Animal::getBeauty() const{
+    return this->beauty;
+}
+int Animal::getLongevity() const{
+    return this->longevity;
+}
+double Animal::getHealth() const{
+    return this->health;
+}
+vector<int> Animal::getLocation() const{
+    return this->location;
+}
+double Animal::getFoodRequirement() const{
+    return this->foodRequirement;
+}
+double Animal::getFood() const{
+    return this->food;
 }
 void Animal::eat(double food){
     this->food += food;
@@ -73,48 +110,23 @@ void Animal::eat(double food){
 void Animal::clearFood(){
     this->food = 0.0;
 }
-
-double Animal::getStrength(){
-    return this->strength;
-}
-double Animal::getFoodFindingAbility(){
-    return this->foodFindingAbility;
-}
-double Animal::getFriendliness(){
-    return this->friendliness;
-}
-double Animal::getSize(){
-    return this->size;
-}
-bool Animal::getSex(){
-    return this->sex;
-}
-int Animal::getAge(){
-    return this->age;
-}
-double Animal::getBeauty(){
-    return this->beauty;
-}
-int Animal::getLongevity(){
-    return this->longevity;
-}
-double Animal::getHealth(){
-    return this->health;
-}
-int* Animal::getLocation(){
-    return this->location;
-}
-double Animal::getFoodRequirement(){
-    return this->foodRequirement;
+void Animal::step(int dx, int dy){
+    this->location[0] += dx;
+    this->location[1] += dy;
 }
 
-double Animal::foodRequirementCalculate(double strength,
-                       double foodFindingAbility,
-                       double friendliness,
-                       double size,
-                       //bool sex,
-                       int age,
-                       double beauty,
-                       double health){
-    return (strength + foodFindingAbility + friendliness + size + beauty - health - age);//*(1+0.2*(double)sex);
+bool Animal::operator==(const Animal& other) const {
+    return (this->age == other.getAge()
+            && this->beauty == other.getBeauty()
+            && this->sex == other.getSex()
+            && this->foodFindingAbility == other.getFoodFindingAbility()
+            && this->friendliness == other.getFriendliness()
+            && this->food == other.getFood()
+            && this->foodRequirement == other.getFoodRequirement()
+            && this->health == other.getHealth()
+            && this->location == other.getLocation()
+            && this->longevity == other.getLongevity()
+            && this->size == other.getSize()
+            && this->strength == other.getStrength());
 }
+

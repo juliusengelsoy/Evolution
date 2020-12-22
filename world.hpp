@@ -18,16 +18,18 @@ class World
 {
 private:
     int sizeWorld;
-    int* coordinates;
     int day;
     int numOfAnimals;
     vector<Animal> animals;
     int step;
     int stepsPerDay;
     int ageWorld;
+    int foodSparseness;
+    double foodSize;
     
 public:
-    World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals);
+    World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int foodSparseness, int foodSize);
+    void randomStep(Animal a);
 };
 
 #endif /* world_hpp */
