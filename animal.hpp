@@ -27,6 +27,8 @@ private:
     vector<int> location;
     double foodRequirement;
     double food;
+    bool foodPrivelege = true;
+    bool toDie = false;
     
 public:
     Animal(double strength,
@@ -52,6 +54,8 @@ public:
     void setHealth(double health);
     void setLocation(vector<int> location);
     void setFoodRequirement(double foodRequirement);
+    void setFoodPrivelege(bool priv);
+    void setToDie(bool die);
     
     double getStrength() const;
     double getFoodFindingAbility() const;
@@ -65,6 +69,8 @@ public:
     vector<int> getLocation() const;
     double getFoodRequirement() const;
     double getFood() const;
+    bool getFoodPrivelege() const;
+    bool getToDie() const;
     
     void eat(double food);
     void clearFood();

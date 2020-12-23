@@ -12,7 +12,9 @@
 using namespace std;
 
 Animal Life::mate(Animal a1, Animal a2){
-    default_random_engine eng;
+    unsigned seed = (unsigned)chrono::system_clock::now().time_since_epoch().count();
+    default_random_engine eng(seed);
+    srand(seed);
     normal_distribution<double> distribution(0.0,0.1);
     Animal c(((a1.getStrength()+a2.getStrength())/2)*exp(distribution(eng)),
                               ((a1.getFoodFindingAbility()+a2.getFoodFindingAbility())/2)*exp(distribution(eng)),

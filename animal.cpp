@@ -67,6 +67,12 @@ void Animal::setLocation(vector<int> location){
 void Animal::setFoodRequirement(double foodRequirement){
     this->foodRequirement = foodRequirement;
 }
+void Animal::setFoodPrivelege(bool priv){
+    this->foodPrivelege = priv;
+}
+void Animal::setToDie(bool die){
+    this->toDie = die;
+}
 
 double Animal::getStrength() const{
     return this->strength;
@@ -104,6 +110,13 @@ double Animal::getFoodRequirement() const{
 double Animal::getFood() const{
     return this->food;
 }
+bool Animal::getFoodPrivelege() const{
+    return this->foodPrivelege;
+}
+bool Animal::getToDie() const{
+    return this->toDie;
+}
+
 void Animal::eat(double food){
     this->food += food;
 }
@@ -127,6 +140,8 @@ bool Animal::operator==(const Animal& other) const {
             && this->location == other.getLocation()
             && this->longevity == other.getLongevity()
             && this->size == other.getSize()
-            && this->strength == other.getStrength());
+            && this->strength == other.getStrength()
+            && this->foodPrivelege == other.getFoodPrivelege()
+            && this->toDie == other.getToDie());
 }
 
