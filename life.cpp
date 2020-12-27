@@ -32,7 +32,6 @@ Animal Life::mate(Animal a1, Animal a2){
                                                    c.getFoodFindingAbility(),
                                                    c.getFriendliness(),
                                                    c.getSize(),
-                                                   //c.getSex(),
                                                    c.getAge(),
                                                    c.getBeauty(),
                                                    c.getHealth()));
@@ -59,9 +58,8 @@ double Life::foodRequirementCalculate(double strength,
                        double foodFindingAbility,
                        double friendliness,
                        double size,
-                       //bool sex,
                        int age,
                        double beauty,
                        double health){
-    return (strength + foodFindingAbility + friendliness + size + beauty - health - age);//*(1+0.2*(double)sex);
+    return max((strength + foodFindingAbility + friendliness + size + beauty - age), 1.0);
 }

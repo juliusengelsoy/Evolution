@@ -29,6 +29,7 @@ private:
     double food;
     bool foodPrivelege = true;
     bool toDie = false;
+    bool isChild = true;
     
 public:
     Animal(double strength,
@@ -48,7 +49,7 @@ public:
     //    void setFriendliness(double friendliness);
     //    void setSize(double size);
     //    void setSex(bool sex);
-    //    void setAge(int age);
+    void setAge(int age);
     //    void setBeauty(double beauty);
     //    void setLongevity(int longevity);
     void setHealth(double health);
@@ -56,6 +57,7 @@ public:
     void setFoodRequirement(double foodRequirement);
     void setFoodPrivelege(bool priv);
     void setToDie(bool die);
+    void setIsChild(bool ch);
     
     double getStrength() const;
     double getFoodFindingAbility() const;
@@ -71,6 +73,7 @@ public:
     double getFood() const;
     bool getFoodPrivelege() const;
     bool getToDie() const;
+    bool getIsChild() const;
     
     void eat(double food);
     void clearFood();

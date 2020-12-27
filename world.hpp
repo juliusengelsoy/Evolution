@@ -12,6 +12,7 @@
 #include <vector>
 #include "animal.hpp"
 #include "life.hpp"
+#include "printer.hpp"
 using namespace std;
 
 class World
@@ -26,9 +27,10 @@ private:
     int ageWorld;
     int foodSparseness;
     double foodSize;
+    int traitMean = 10;
     
 public:
-    World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int foodSparseness, int foodSize);
+    World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int foodSparseness, double foodSize, Printer printer);
     void randomStep(Animal a);
 };
 

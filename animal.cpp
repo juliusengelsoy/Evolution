@@ -49,9 +49,9 @@ Animal::Animal(double strength,
 //void Animal::setSex(bool sex){
 //    this->sex = sex;
 //}
-//void Animal::setAge(int age){
-//    this->age = age;
-//}
+void Animal::setAge(int age){
+    this->age = age;
+}
 //void Animal::setBeauty(double beauty){
 //    this->beauty = beauty;
 //}
@@ -72,6 +72,9 @@ void Animal::setFoodPrivelege(bool priv){
 }
 void Animal::setToDie(bool die){
     this->toDie = die;
+}
+void Animal::setIsChild(bool ch){
+    this->isChild = ch;
 }
 
 double Animal::getStrength() const{
@@ -115,6 +118,9 @@ bool Animal::getFoodPrivelege() const{
 }
 bool Animal::getToDie() const{
     return this->toDie;
+}
+bool Animal::getIsChild() const{
+    return this->isChild;
 }
 
 void Animal::eat(double food){

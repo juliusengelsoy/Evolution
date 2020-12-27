@@ -12,14 +12,15 @@
 #include "animal.hpp"
 #include "life.hpp"
 #include <random>
+#include "printer.hpp"
 using namespace std;
 
-World::World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int foodSparseness, int foodSize){
+World::World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int foodSparseness, double foodSize, Printer printer){
     this->sizeWorld = sizeWorld;
     this->stepsPerDay = stepsPerDay;
     this->ageWorld = ageWorld;
     this->numOfAnimals = numOfAnimals;
-    this->day = 1;
+    this->day = 0;
     this->step = 0;
     this->foodSparseness = foodSparseness;
     this->foodSize = foodSize;
@@ -33,15 +34,15 @@ World::World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int
     Life life;
     
     for (int i = 0; i < this->numOfAnimals; i++) {
-        double strength = 10*exp(distribution(eng));
-        double foodFindingAbility = 10*exp(distribution(eng));
-        double friendliness = 10*exp(distribution(eng));
-        double size = 10*exp(distribution(eng));
+        double strength = this->traitMean*exp(distribution(eng));
+        double foodFindingAbility = this->traitMean*exp(distribution(eng));
+        double friendliness = this->traitMean*exp(distribution(eng));
+        double size = this->traitMean*exp(distribution(eng));
         bool sex = rand() % 2;
         int age = 0;
-        double beauty = 10*exp(distribution(eng));
-        int longevity = (int)100*exp(distribution(eng));
-        double health = 10*exp(distribution(eng));
+        double beauty = this->traitMean*exp(distribution(eng));
+        int longevity = (int)this->traitMean*exp(distribution(eng));
+        double health = this->traitMean*exp(distribution(eng));
         vector<int> location{ rand() % this->sizeWorld, rand() % this->sizeWorld };
         double foodRequirement = life.foodRequirementCalculate(strength, foodFindingAbility, friendliness, size, age, beauty, health);
         double food = 0.0;
@@ -63,10 +64,11 @@ World::World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int
     this->animals = animals;
     
     for (int i = 0; i < this->ageWorld; i++) {
-        for (vector<Animal>::iterator it=this->animals.begin(); it!=this->animals.end();it++){
-            if(it->getAge()>=it->getLongevity())
-                this->animals.erase(it--);
-        }
+        
+        int childrenToday = 0;
+        int deathsFromStarvationToday = 0;
+        int deathsFromAgeToday = 0;
+        int deathsFromFightingToday = 0;
         
         for (int j = 0; j < this->stepsPerDay; j++) {
             vector<vector<int>> locations;
@@ -103,6 +105,7 @@ World::World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int
                                 if (rand() % 100 > 30) {
                                     Animal c = life.mate(a1, a2);
                                     newAnimals.push_back(c);
+                                    childrenToday += 1;
                                 }
                             }
                             else{
@@ -113,6 +116,7 @@ World::World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int
                                         double newHealth = a2.get().getHealth()-damage;
                                         if (newHealth <= 0.0) {
                                             a2.get().setToDie(true);
+                                            deathsFromFightingToday += 1;
                                         }
                                         else{
                                             a2.get().setHealth(newHealth);
@@ -124,6 +128,7 @@ World::World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int
                                         double newHealth = a1.get().getHealth()-damage;
                                         if (newHealth <= 0.0) {
                                             a1.get().setToDie(true);
+                                            deathsFromFightingToday += 1;
                                         }
                                         else{
                                             a1.get().setHealth(newHealth);
@@ -184,13 +189,28 @@ World::World(int sizeWorld, int stepsPerDay, int ageWorld, int numOfAnimals, int
             this->animals = newAnimals;
         }
         for (vector<Animal>::iterator animalIt=this->animals.begin(); animalIt!=this->animals.end();animalIt++) {
-            if (animalIt->getFoodRequirement()>animalIt->getFood()) {
+            if (animalIt->getFoodRequirement()>animalIt->getFood() && !animalIt->getIsChild()) {
                 this->animals.erase(animalIt--);
+                deathsFromStarvationToday += 1;
             }
-            animalIt->clearFood();
+            else if(animalIt->getAge()>=animalIt->getLongevity()){
+                this->animals.erase(animalIt--);
+                deathsFromAgeToday += 1;
+            }
+            else {
+                animalIt->setIsChild(false);
+                animalIt->clearFood();
+                animalIt->setAge(animalIt->getAge() + 1);
+            }
         }
         
+        printer.traitStore(this->animals);
+        printer.addDeathsFromAge(deathsFromAgeToday);
+        printer.addDeathsFromFighting(deathsFromFightingToday);
+        printer.addDeathsFromStarvation(deathsFromStarvationToday);
+        printer.addChildren(childrenToday);
     }
-    
+
+    printer.print();
     
 }

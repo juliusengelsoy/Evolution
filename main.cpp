@@ -6,21 +6,22 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <random>
+#include "printer.hpp"
+#include "world.hpp"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    vector<int> vect{1,2,3,4};
-    vector<vector<int>> pairs;
-    for (vector<int>::iterator it1=vect.begin(); it1+1!=vect.end(); it1++) {
-        for (vector<int>::iterator it2=it1+1; it2!=vect.end();it2++) {
-            pairs.push_back(vector<int> {*it1,*it2});
-        }
-    }
-    for (int i = 0; i < pairs.size(); i++) {
-        cout << "(" << pairs[i][0] << ", " << pairs[i][1] << ")" << endl;
-    }
-    //cout << "Hello World!" << endl;
+    vector<double> binSizes(8, 1.0);
+    Printer printer(binSizes, "/Users/Julius/Documents/Evolution/Evolution/Evolution/");
+    World world(100, //sizeWorld
+                10, //stepsPerDay
+                100, //ageWorld
+                100, //numOfAnimals
+                10, //foodSparseness
+                10.0, //foodSize
+                printer);
     return 0;
 }
